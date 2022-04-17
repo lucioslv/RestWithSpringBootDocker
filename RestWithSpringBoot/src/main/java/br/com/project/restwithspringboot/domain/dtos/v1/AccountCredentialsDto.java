@@ -1,9 +1,9 @@
-package br.com.project.restwithspringboot.security;
+package br.com.project.restwithspringboot.domain.dtos.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class AccountCredentialsVO implements Serializable {
+public class AccountCredentialsDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class AccountCredentialsVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccountCredentialsVO that = (AccountCredentialsVO) o;
+        AccountCredentialsDto that = (AccountCredentialsDto) o;
         return Objects.equals(username, that.username) && Objects.equals(password, that.password);
     }
 

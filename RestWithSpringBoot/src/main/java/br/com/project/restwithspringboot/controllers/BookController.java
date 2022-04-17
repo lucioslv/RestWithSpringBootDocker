@@ -1,7 +1,6 @@
 package br.com.project.restwithspringboot.controllers;
 
-import br.com.project.restwithspringboot.data.vos.v1.BookVO;
-import br.com.project.restwithspringboot.data.vos.v1.PersonVO;
+import br.com.project.restwithspringboot.domain.dtos.v1.BookDto;
 import br.com.project.restwithspringboot.services.BookServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -30,7 +27,7 @@ public class BookController {
     private BookServices service;
 
     @Autowired
-    private PagedResourcesAssembler<BookVO> assembler;
+    private PagedResourcesAssembler<BookDto> assembler;
 
     @ApiOperation("Find all books")
     @GetMapping
@@ -43,7 +40,7 @@ public class BookController {
 
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "title"));
 
-        Page<BookVO> books =  service.findAll(pageable);
+        Page<BookDto> books =  service.findAll(pageable);
 
         books.stream().forEach(p -> p.add(linkTo(methodOn(BookController.class).findById(p.getKey())).withSelfRel()));
 
@@ -54,26 +51,26 @@ public class BookController {
 
     @ApiOperation("Find a specific book by your ID")
     @GetMapping("/{id}")
-    public BookVO findById(@PathVariable(value="id") Long id) {
-        BookVO bookVO = service.findById(id);
-        bookVO.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
-        return bookVO;
+    public BookDto findById(@PathVariable(value="id") Long id) {
+        BookDto bookDto = service.findById(id);
+        bookDto.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
+        return bookDto;
     }
 
     @ApiOperation("Create a new book")
     @PostMapping
-    public BookVO create(@RequestBody BookVO book) {
-        BookVO bookVO = service.create(book);
-        bookVO.add(linkTo(methodOn(BookController.class).findById(bookVO.getKey())).withSelfRel());
-        return bookVO;
+    public BookDto create(@RequestBody BookDto book) {
+        BookDto bookDto = service.create(book);
+        bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel());
+        return bookDto;
     }
 
     @ApiOperation("Update a specific book")
     @PutMapping
-    public BookVO update(@RequestBody BookVO book) {
-        BookVO bookVO = service.update(book);
-        bookVO.add(linkTo(methodOn(BookController.class).findById(bookVO.getKey())).withSelfRel());
-        return bookVO;
+    public BookDto update(@RequestBody BookDto book) {
+        BookDto bookDto = service.update(book);
+        bookDto.add(linkTo(methodOn(BookController.class).findById(bookDto.getKey())).withSelfRel());
+        return bookDto;
     }
 
     @ApiOperation("Delete a specific book by your ID")

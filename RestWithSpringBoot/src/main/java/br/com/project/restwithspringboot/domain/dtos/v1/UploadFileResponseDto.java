@@ -1,16 +1,9 @@
-package br.com.project.restwithspringboot.data.vos.v1;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.github.dozermapper.core.Mapping;
-import org.springframework.hateoas.RepresentationModel;
+package br.com.project.restwithspringboot.domain.dtos.v1;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 
-public class UploadFileResponseVO implements Serializable {
+public class UploadFileResponseDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,10 +12,10 @@ public class UploadFileResponseVO implements Serializable {
     private String fileType;
     private Long size;
 
-    public UploadFileResponseVO(){
+    public UploadFileResponseDto(){
     }
 
-    public UploadFileResponseVO(String fileName, String fileDownloadUri, String fileType, Long size) {
+    public UploadFileResponseDto(String fileName, String fileDownloadUri, String fileType, Long size) {
         this.fileName = fileName;
         FileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
@@ -65,7 +58,7 @@ public class UploadFileResponseVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UploadFileResponseVO that = (UploadFileResponseVO) o;
+        UploadFileResponseDto that = (UploadFileResponseDto) o;
         return Objects.equals(fileName, that.fileName) && Objects.equals(FileDownloadUri, that.FileDownloadUri) && Objects.equals(fileType, that.fileType) && Objects.equals(size, that.size);
     }
 

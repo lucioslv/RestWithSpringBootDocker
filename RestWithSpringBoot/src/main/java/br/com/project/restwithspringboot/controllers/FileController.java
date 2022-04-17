@@ -1,7 +1,6 @@
 package br.com.project.restwithspringboot.controllers;
 
-import br.com.project.restwithspringboot.data.vos.v1.UploadFileResponseVO;
-import br.com.project.restwithspringboot.exceptions.MyFileNotFoundException;
+import br.com.project.restwithspringboot.domain.dtos.v1.UploadFileResponseDto;
 import br.com.project.restwithspringboot.services.FileStorageServices;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -31,20 +30,19 @@ public class FileController {
     private FileStorageServices fileStorageService;
 
     @PostMapping("/uploadFile")
-    public UploadFileResponseVO uploadFile(@RequestParam("file") MultipartFile file){
+    public UploadFileResponseDto uploadFile(@RequestParam("file") MultipartFile file){
 
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/file/v1/downloadFile/").path(fileName).toUriString();
 
-        return new UploadFileResponseVO(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+        return new UploadFileResponseDto(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
 
     @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponseVO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files){
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
+    public List<UploadFileResponseDto> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files){
+        return Arrays.stream(files)
+                .map(this::uploadFile)
                 .collect(Collectors.toList());
     }
 

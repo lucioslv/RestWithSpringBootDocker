@@ -2,7 +2,7 @@ package br.com.project.restwithspringboot.controllers;
 
 import br.com.project.restwithspringboot.repositories.UserRepository;
 import br.com.project.restwithspringboot.security.jwt.JwtTokenProvider;
-import br.com.project.restwithspringboot.security.AccountCredentialsVO;
+import br.com.project.restwithspringboot.domain.dtos.v1.AccountCredentialsDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class AuthController {
     @SuppressWarnings("rawtypes")
     @PostMapping(value = "/signin", produces = { "application/json", "application/xml", "application/x-yaml" },
             consumes = { "application/json", "application/xml", "application/x-yaml" })
-    public ResponseEntity signin(@RequestBody AccountCredentialsVO data) {
+    public ResponseEntity signin(@RequestBody AccountCredentialsDto data) {
         try {
             var username = data.getUsername();
             var pasword = data.getPassword();

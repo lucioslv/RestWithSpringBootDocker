@@ -1,10 +1,11 @@
 package br.com.project.restwithspringboot.utils.mocks;
 
-import br.com.project.restwithspringboot.data.models.Book;
-import br.com.project.restwithspringboot.data.vos.v1.BookVO;
+import br.com.project.restwithspringboot.domain.models.Book;
+import br.com.project.restwithspringboot.domain.dtos.v1.BookDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -14,20 +15,20 @@ public class MockBook {
         return mockEntity(0);
     }
 
-    public BookVO mockVO() {
+    public BookDto mockVO() {
         return mockVO(0);
     }
 
     public List<Book> mockEntityList() {
-        List<Book> books = new ArrayList<Book>();
+        List<Book> books = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             books.add(mockEntity(i));
         }
         return books;
     }
 
-    public List<BookVO> mockVOList() {
-        List<BookVO> books = new ArrayList<>();
+    public List<BookDto> mockVOList() {
+        List<BookDto> books = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             books.add(mockVO(i));
         }
@@ -38,17 +39,17 @@ public class MockBook {
         Book book = new Book();
         book.setId(number.longValue());
         book.setAuthor("Michael C. Feathers" + number);
-        book.setLaunchDate(new GregorianCalendar(2020, 01, 01).getTime());
+        book.setLaunchDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         book.setPrice(new BigDecimal("49.00"));
         book.setTitle("Working effectively with legacy code" + number);
         return book;
     }
 
-    private BookVO mockVO(Integer number) {
-        BookVO book = new BookVO();
+    private BookDto mockVO(Integer number) {
+        BookDto book = new BookDto();
         book.setKey(number.longValue());
         book.setAuthor("Michael C. Feathers" + number);
-        book.setLaunchDate(new GregorianCalendar(2020, 01, 01).getTime());
+        book.setLaunchDate(new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime());
         book.setPrice(new BigDecimal("49.00"));
         book.setTitle("Working effectively with legacy code" + number);
         return book;

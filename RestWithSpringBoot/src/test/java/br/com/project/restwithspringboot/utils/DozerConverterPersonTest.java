@@ -1,7 +1,7 @@
 package br.com.project.restwithspringboot.utils;
 
-import br.com.project.restwithspringboot.data.models.Person;
-import br.com.project.restwithspringboot.data.vos.v1.PersonVO;
+import br.com.project.restwithspringboot.domain.models.Person;
+import br.com.project.restwithspringboot.domain.dtos.v1.PersonDto;
 import br.com.project.restwithspringboot.utils.mocks.MockPerson;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,8 +19,8 @@ public class DozerConverterPersonTest {
     }
 
     @Test
-    public void parseEntityToVOTest() {
-        PersonVO output = DozerConverter.parseObject(inputObject.mockEntity(), PersonVO.class);
+    public void parseEntityToDtoTest() {
+        PersonDto output = DozerConverter.parseObject(inputObject.mockEntity(), PersonDto.class);
         Assert.assertEquals(Long.valueOf(0L), output.getKey());
         Assert.assertEquals("First Name Test0", output.getFirstName());
         Assert.assertEquals("Last Name Test0", output.getLastName());
@@ -29,9 +29,9 @@ public class DozerConverterPersonTest {
     }
 
     @Test
-    public void parseEntityListToVOListTest() {
-        List<PersonVO> outputList = DozerConverter.parseListObjects(inputObject.mockEntityList(), PersonVO.class);
-        PersonVO outputZero = outputList.get(0);
+    public void parseEntityListToDtoListTest() {
+        List<PersonDto> outputList = DozerConverter.parseListObjects(inputObject.mockEntityList(), PersonDto.class);
+        PersonDto outputZero = outputList.get(0);
 
         Assert.assertEquals(Long.valueOf(0L), outputZero.getKey());
         Assert.assertEquals("First Name Test0", outputZero.getFirstName());
@@ -39,7 +39,7 @@ public class DozerConverterPersonTest {
         Assert.assertEquals("Addres Test0", outputZero.getAddress());
         Assert.assertEquals("Male", outputZero.getGender());
 
-        PersonVO outputSeven = outputList.get(7);
+        PersonDto outputSeven = outputList.get(7);
 
         Assert.assertEquals(Long.valueOf(7L), outputSeven.getKey());
         Assert.assertEquals("First Name Test7", outputSeven.getFirstName());
@@ -47,7 +47,7 @@ public class DozerConverterPersonTest {
         Assert.assertEquals("Addres Test7", outputSeven.getAddress());
         Assert.assertEquals("Female", outputSeven.getGender());
 
-        PersonVO outputTwelve = outputList.get(12);
+        PersonDto outputTwelve = outputList.get(12);
 
         Assert.assertEquals(Long.valueOf(12L), outputTwelve.getKey());
         Assert.assertEquals("First Name Test12", outputTwelve.getFirstName());
@@ -57,7 +57,7 @@ public class DozerConverterPersonTest {
     }
 
     @Test
-    public void parseVOToEntityTest() {
+    public void parseDtoToEntityTest() {
         Person output = DozerConverter.parseObject(inputObject.mockVO(), Person.class);
         Assert.assertEquals(Long.valueOf(0L), output.getId());
         Assert.assertEquals("First Name Test0", output.getFirstName());
@@ -67,7 +67,7 @@ public class DozerConverterPersonTest {
     }
 
     @Test
-    public void parserVOListToEntityListTest() {
+    public void parserDtoListToEntityListTest() {
         List<Person> outputList = DozerConverter.parseListObjects(inputObject.mockVOList(), Person.class);
         Person outputZero = outputList.get(0);
 

@@ -1,7 +1,7 @@
 package br.com.project.restwithspringboot.utils.mocks;
 
-import br.com.project.restwithspringboot.data.models.Person;
-import br.com.project.restwithspringboot.data.vos.v1.PersonVO;
+import br.com.project.restwithspringboot.domain.models.Person;
+import br.com.project.restwithspringboot.domain.dtos.v1.PersonDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +12,20 @@ public class MockPerson {
         return mockEntity(0);
     }
 
-    public PersonVO mockVO() {
+    public PersonDto mockVO() {
         return mockVO(0);
     }
 
     public List<Person> mockEntityList() {
-        List<Person> persons = new ArrayList<Person>();
+        List<Person> persons = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             persons.add(mockEntity(i));
         }
         return persons;
     }
 
-    public List<PersonVO> mockVOList() {
-        List<PersonVO> persons = new ArrayList<>();
+    public List<PersonDto> mockVOList() {
+        List<PersonDto> persons = new ArrayList<>();
         for (int i = 0; i < 14; i++) {
             persons.add(mockVO(i));
         }
@@ -42,8 +42,8 @@ public class MockPerson {
         return person;
     }
 
-    private PersonVO mockVO(Integer number) {
-        PersonVO person = new PersonVO();
+    private PersonDto mockVO(Integer number) {
+        PersonDto person = new PersonDto();
         person.setAddress("Addres Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");

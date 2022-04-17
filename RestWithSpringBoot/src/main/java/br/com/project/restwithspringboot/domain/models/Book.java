@@ -1,42 +1,42 @@
-package br.com.project.restwithspringboot.data.vos.v1;
+package br.com.project.restwithspringboot.domain.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.github.dozermapper.core.Mapping;
-import org.springframework.hateoas.RepresentationModel;
-
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "author", "launch_date", "price", "title"})
-public class BookVO extends RepresentationModel implements Serializable {
-
+@Entity
+@Table(name="books")
+public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Mapping("id")
-    @JsonProperty("id")
-    private Long key;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "author", columnDefinition = "longtext default NULL")
     private String author;
 
-    @JsonProperty("launch_date")
+    @Column(name = "launch_date", nullable = false, columnDefinition = "datetime(6)")
+    @Temporal(TemporalType.DATE)
     private Date launchDate;
 
+    @Column(name = "price", nullable = false, columnDefinition = "decimal(65,2)")
     private BigDecimal price;
 
+    @Column(name = "title", columnDefinition = "longtext default NULL")
     private String title;
 
-    public BookVO() {
+    public Book() {
     }
 
-    public Long getKey() {
-        return key;
+    public Long getId() {
+        return id;
     }
 
-    public void setKey(Long key) {
-        this.key = key;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAuthor() {
@@ -75,12 +75,12 @@ public class BookVO extends RepresentationModel implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookVO bookVO = (BookVO) o;
-        return Objects.equals(key, bookVO.key) && Objects.equals(author, bookVO.author) && Objects.equals(launchDate, bookVO.launchDate) && Objects.equals(price, bookVO.price) && Objects.equals(title, bookVO.title);
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(author, book.author) && Objects.equals(launchDate, book.launchDate) && Objects.equals(price, book.price) && Objects.equals(title, book.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, author, launchDate, price, title);
+        return Objects.hash(id, author, launchDate, price, title);
     }
 }

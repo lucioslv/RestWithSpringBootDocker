@@ -1,47 +1,44 @@
-package br.com.project.restwithspringboot.data.models;
+package br.com.project.restwithspringboot.domain.dtos.v1;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.github.dozermapper.core.Mapping;
+import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name="person")
-public class Person implements Serializable {
+@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender", "enabled"})
+public class PersonDto extends RepresentationModel<PersonDto> implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Mapping("id")
+    @JsonProperty("id")
+    private Long key;
 
-    @Column(name = "first_name", nullable = false, length = 100)
+    @JsonProperty("first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 100)
+    @JsonProperty("last_name")
     private String lastName;
 
-    @Column(name = "address", nullable = false, length = 100)
     private String address;
 
-    @Column(name = "gender", nullable = false, length = 6)
     private String gender;
 
-    @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    public Person() {
+    public PersonDto() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getFirstName() {
@@ -88,12 +85,13 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender) && Objects.equals(enabled, person.enabled);
+        if (!super.equals(o)) return false;
+        PersonDto personDto = (PersonDto) o;
+        return Objects.equals(key, personDto.key) && Objects.equals(firstName, personDto.firstName) && Objects.equals(lastName, personDto.lastName) && Objects.equals(address, personDto.address) && Objects.equals(gender, personDto.gender) && Objects.equals(enabled, personDto.enabled);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender, enabled);
+        return Objects.hash(super.hashCode(), key, firstName, lastName, address, gender, enabled);
     }
 }

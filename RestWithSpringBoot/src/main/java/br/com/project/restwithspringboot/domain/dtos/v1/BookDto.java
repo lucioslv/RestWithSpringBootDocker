@@ -1,42 +1,42 @@
-package br.com.project.restwithspringboot.data.models;
+package br.com.project.restwithspringboot.domain.dtos.v1;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name="books")
-public class Book implements Serializable {
+@JsonPropertyOrder({"id", "author", "launch_date", "price", "title"})
+public class BookDto extends RepresentationModel<BookDto> implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Mapping("id")
+    @JsonProperty("id")
+    private Long key;
 
-    @Column(name = "author", nullable = true, columnDefinition = "longtext default NULL")
     private String author;
 
-    @Column(name = "launch_date", nullable = false, columnDefinition = "datetime(6)")
-    @Temporal(TemporalType.DATE)
+    @JsonProperty("launch_date")
     private Date launchDate;
 
-    @Column(name = "price", nullable = false, columnDefinition = "decimal(65,2)")
     private BigDecimal price;
 
-    @Column(name = "title", nullable = true, columnDefinition = "longtext default NULL")
     private String title;
 
-    public Book() {
+    public BookDto() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public String getAuthor() {
@@ -75,12 +75,12 @@ public class Book implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(author, book.author) && Objects.equals(launchDate, book.launchDate) && Objects.equals(price, book.price) && Objects.equals(title, book.title);
+        BookDto bookDto = (BookDto) o;
+        return Objects.equals(key, bookDto.key) && Objects.equals(author, bookDto.author) && Objects.equals(launchDate, bookDto.launchDate) && Objects.equals(price, bookDto.price) && Objects.equals(title, bookDto.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author, launchDate, price, title);
+        return Objects.hash(key, author, launchDate, price, title);
     }
 }

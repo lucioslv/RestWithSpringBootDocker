@@ -1,6 +1,6 @@
 package br.com.project.restwithspringboot.repositories;
 
-import br.com.project.restwithspringboot.data.models.Person;
+import br.com.project.restwithspringboot.domain.models.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package br.com.project.restwithspringboot.data.models;
+package br.com.project.restwithspringboot.domain.models;
 
 import org.springframework.security.core.GrantedAuthority;
 
